@@ -1,0 +1,123 @@
+:lang: en
+:source-highlighter: pygments
+:icons: font
+:xrefstyle: short
+
+
+=== https://www.cs.swarthmore.edu/~chaganti/cs88/s24/index.html[CS88] Lab-Worksheet https://www.cs.swarthmore.edu/~chaganti/cs88/s24/labs/lab2b.html[Lab2b: Cross-Site Scripting Attacks and Cross Site Request Forgery]
+
+==== In-Lab Activities
+* Task 1: Login as Alice and use `HTTP Header Live` to find the 
+ `HTTP POST` request associated with the login.
+
+Fill in the HTTP Header Fields in the request:
+
+Host: www.seed-server.com
+
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:83.0) Gecko/20100101 Firefox/83.0
+
+Accept: application/json, text/javascript, */*; q=0.01
+
+Accept-Language: en-US,en;q=0.5
+
+Accept-Encoding: gzip, deflate
+
+X-Elgg-Ajax-API: 2
+
+X-Requested-With: XMLHttpRequest
+
+Content-Type: multipart/form-data; boundary=---------------------------159743462313290894171320334476
+
+Content-Length: 570
+
+Origin: http://www.seed-server.com
+
+Connection: keep-alive
+
+Referer: http://www.seed-server.com/
+
+Cookie: Elgg=6fn60js7q6i5hkefhnhbsq8060
+
+
+Fill in the HTTP Header Fields in the response:
+
+Host: cdn.sstatic.net
+
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:83.0) Gecko/20100101 Firefox/83.0
+
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+
+Accept-Language: en-US,en;q=0.5
+
+Accept-Encoding: gzip, deflate, br
+
+DNT: 1
+
+Connection: keep-alive
+
+Upgrade-Insecure-Requests: 1
+
+
+
+* Why do we need a POST instead of a GET request when we login?
+We use a POST request because the login information is sensitive, and POST requests are more secure than GET requests.
+GET requests store parameters in the URL, so this would not be secure.
+
+* Task 2: Find the cookie value associated with the GET request when we 
+  click on Alice's profile.
+
+Elgg=7mhgutiptsibagl94kntqgmesm
+
+* Explain why all the other GET requests share the same cookie value.
+The cooikie is shared across all the GET requests because it ensures that all the information will be for the correct user, Alice.
+(Session?)
+
+==== Attack Level 1
+
+* Provide the javascript code below to display the victim's cookie 
+   value on your webpage.
+<script> alert(document.cookie); </script>
+
+==== Attack Level 2
+* Log the URL of a legitimate friend request using HTTP GET. Describe 
+  the various parts of the URL string. 
+http://www.seed-server.com/action/friends/add?friend=59&__elgg_ts=1708999831&__elgg_token=1I-7a20gdgvxfe-j1Fl7Yg&__elgg_ts=1708999831&__elgg_token=1I-7a20gdgvxfe-j1Fl7Yg
+
+http: protocol
+seed-server.com: domain
+/action/friends/add: path
+friend=59&__elgg_ts=1708999831&__elgg_token=1I-7a20gdgvxfe-j1Fl7Yg&__elgg_ts=1708999831&__elgg_token=1I-7a20gdgvxfe-j1Fl7Yg: parameters
+
+
+* Once you have completed `add_friend.js` describe at a high-level 
+  how your attack works. 
+- When a user accesses Samy's profile, the script finds the user's timestamp and token by accessing
+elgg.security.token.__elgg_ts and elgg.security.token.__elg_token, 
+then uses these as part of a Ajax request using Samy's unique ID, 59.
+This way, any user that visits Samy's page gets added as a friend automatically.
+
+
+==== Attack Level 3
+
+* Once you have completed `edit_profile.js`, describe at a high-level
+ how your attack works
+ 
+ - When user loads Samy's profile, it runs a script that sends a POST request using user's token and other information.
+ Sets the user's profile 'About Me' page to just have 'Samy is my hero'.
+
+==== Attack Level 4
+
+* Once you have completed `self_progagating.js`, describe at a high-level
+ how your attack works.
+
+- We inject the same script that we put into Samy's profile into the profiles of everybody that visits him. This propogates itself,
+as anybody who visits the infected user's profiles will also have the script injected into their profile.
+
+==== Discussion Questions
+
+* Why do you think the `ts` and `token` flags were not appropriate
+  countermeasures for XSS attacks? 
+
+
+* What defenses can the Elgg social networking platform use to prevent
+XSS attacks?

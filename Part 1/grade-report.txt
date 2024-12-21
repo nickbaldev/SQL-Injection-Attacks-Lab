@@ -1,0 +1,26 @@
+2 points for launching SQL Injection Attack Totalpoints: 2 
+Score: 2 
+print all the profile information for Alice Totalpoints: 0.25 
+Score: 0.25 
+"print all the users with a salary greater than 50 Totalpoints: 0.25 
+Score: 0.25 
+000" Totalpoints: 0.25 
+Score: 0.25 
+"update Ted’s salary to 120 Totalpoints: 2 
+Score: 2 
+000" Totalpoints: 0.25 
+Score: 0.25 
+prepared SQL command for salary greater than 80000 Totalpoints: 1 
+Score: 1 
+Login to the Admin account without knowing the admin’s password. Totalpoints: 1 
+Score: 1 
+Login to Alice’s account without knowing her username or her password Totalpoints: 2 
+Score: 2 
+"find any one employee who earns more than $80 Totalpoints: 2 
+Score: 2 
+000" Totalpoints: 9 
+Score: 9 
+Change Alice’s salary to $90000 Totalpoints: 2 
+Score: 2 
+set Bob’s salary to $1 and change his password to something Bob will never guess. Totalpoints: 4 
+Score: 4 

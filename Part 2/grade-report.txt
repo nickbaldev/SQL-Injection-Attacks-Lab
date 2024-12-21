@@ -1,0 +1,38 @@
+Add Friend Totalpoints: 4 
+Score: 4 
+Edit Profile Totalpoints: 4 
+Score: 4 
+Self Propagating Totalpoints: 4 
+Score: 4 
+Worksheet:  HTTP Header Fields in the request Totalpoints: 0.5 
+Score: 0.5 
+Worksheet: HTTP Header Fields in the response Totalpoints: 0.5 
+Score: 0.25 
+Worksheet: Why do we need a POST instead of a GET request when we login? Totalpoints: 1 
+Score: 0.5 
+Worksheet: Find the cookie value  Totalpoints: 0.5 
+Score: 0.5 
+Worksheet: Explain why all the other GET requests share the same cookie value Totalpoints: 1 
+Score: 1 
+Worksheet: Log the URL of a legitimate friend request using HTTP GET. Totalpoints: 0.5 
+Score: 0.5 
+Worksheet: Describe at a high level how add friend works Totalpoints: 1 
+Score: 1 
+Worksheet: Describe at a high level how edit profile works Totalpoints: 1 
+Score: 1 
+Worksheet: Describe at a high level how the self propagating worm works Totalpoints: 2 
+Score: 2 
+Worksheet: why are ts and token flags were not appropriate countermeasures for XSS attacks Totalpoints: 2 
+Score: 0 
+Worksheet: Defenses against XSS Totalpoints: 2 
+Score: 0 
+worksheet points Totalpoints: 12 
+Score: 7.25 
+worksheet points out of 4 Totalpoints: 4 
+Score: 2.416666667 
+total lab points Totalpoints: 16 
+Score: 14.41666667 
+lab points out of 4 Totalpoints: 4 
+Score: 3.6 
+notes Totalpoints:  
+Score: excellent break down of a legitimate add friend URL! Well done! 

